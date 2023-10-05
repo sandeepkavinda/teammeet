@@ -424,3 +424,21 @@ table.roundedCorners:last-child>tr {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.view-details{
+    background-color: #088395;
+    color: #fff;
+    border: none;
+
+}
+
+.view-details:hover{
+    background-color: #071952;
+    color: #fff;
+}
+
+.message_box,
+.chat_box {
+    height: 500px;
+    overflow-y: scroll;
+}

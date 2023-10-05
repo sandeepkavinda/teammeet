@@ -105,7 +105,7 @@ function signUpProcess() {
       if (request.readyState == 4 && request.status == 200) {
         var response = request.responseText;
         if (response == "success") {
-          window.location = "authentication.php";
+          window.location.reload();
         } else {
           alert(response);
         }
@@ -192,7 +192,6 @@ function forgotPasswordProcess() {
   } else if (rpw == "") {
     alert("Please Retype New Password");
   } else {
-
     var form = new FormData();
     form.append("e", email);
     form.append("n", pw);
@@ -202,14 +201,13 @@ function forgotPasswordProcess() {
     var request = new XMLHttpRequest();
 
     request.onreadystatechange = function () {
-
       if (request.readyState == 4 && request.status == 200) {
         var response = request.responseText;
         alert(response);
         if (response == "sucess") {
           window.location.reload();
         } else {
-         alert(response);
+          alert(response);
         }
       }
     };
@@ -219,61 +217,48 @@ function forgotPasswordProcess() {
   }
 }
 
-
-
 function listChange(row) {
+  if (row == "1") {
+    document.getElementById("list-1").classList.add("activeTab");
+    document.getElementById("list-2").classList.remove("activeTab");
+    document.getElementById("list-3").classList.remove("activeTab");
+    document.getElementById("list-4").classList.remove("activeTab");
 
-    if (row == "1") {
-        document.getElementById("list-1").classList.add("activeTab");
-        document.getElementById("list-2").classList.remove("activeTab");
-        document.getElementById("list-3").classList.remove("activeTab");
-        document.getElementById("list-4").classList.remove("activeTab");
+    document.getElementById("dashboard").classList = "col-12 d-block";
+    document.getElementById("projects").classList = "col-12 d-none";
+    document.getElementById("message").classList = "col-12 d-none";
+  } else if (row == "2") {
+    document.getElementById("list-1").classList.remove("activeTab");
+    document.getElementById("list-2").classList.add("activeTab");
+    document.getElementById("list-3").classList.remove("activeTab");
+    document.getElementById("list-4").classList.remove("activeTab");
 
-        document.getElementById("dashboard").classList = "col-12 d-block";
-        document.getElementById("projects").classList = "col-12 d-none";
-        document.getElementById("message").classList = "col-12 d-none";
+    document.getElementById("dashboard").classList = "col-12 d-none";
+    document.getElementById("projects").classList = "col-12 d-block";
+    document.getElementById("tasks").classList = "col-12 d-none";
+    document.getElementById("message").classList = "col-12 d-none";
+  } else if (row == "3") {
+    document.getElementById("list-1").classList.remove("activeTab");
+    document.getElementById("list-2").classList.remove("activeTab");
+    document.getElementById("list-3").classList.add("activeTab");
+    document.getElementById("list-4").classList.remove("activeTab");
 
+    document.getElementById("dashboard").classList = "col-12 d-none";
+    document.getElementById("projects").classList = "col-12 d-none";
+    document.getElementById("tasks").classList = "col-12 d-block";
+    document.getElementById("message").classList = "col-12 d-none";
+  } else if (row == "4") {
+    document.getElementById("list-1").classList.remove("activeTab");
+    document.getElementById("list-2").classList.remove("activeTab");
+    document.getElementById("list-3").classList.remove("activeTab");
+    document.getElementById("list-4").classList.add("activeTab");
 
-    } else if (row == "2") {
-        document.getElementById("list-1").classList.remove("activeTab");
-        document.getElementById("list-2").classList.add("activeTab");
-        document.getElementById("list-3").classList.remove("activeTab");
-        document.getElementById("list-4").classList.remove("activeTab");
-
-        document.getElementById("dashboard").classList = "col-12 d-none";
-        document.getElementById("projects").classList = "col-12 d-block";
-        document.getElementById("tasks").classList = "col-12 d-none";
-        document.getElementById("message").classList = "col-12 d-none";
-
-
-    } else if (row == "3") {
-        document.getElementById("list-1").classList.remove("activeTab");
-        document.getElementById("list-2").classList.remove("activeTab");
-        document.getElementById("list-3").classList.add("activeTab");
-        document.getElementById("list-4").classList.remove("activeTab");
-
-        document.getElementById("dashboard").classList = "col-12 d-none";
-        document.getElementById("projects").classList = "col-12 d-none";
-        document.getElementById("tasks").classList = "col-12 d-block";
-        document.getElementById("message").classList = "col-12 d-none";
-
-
-    } else if (row == "4") {
-        document.getElementById("list-1").classList.remove("activeTab");
-        document.getElementById("list-2").classList.remove("activeTab");
-        document.getElementById("list-3").classList.remove("activeTab");
-        document.getElementById("list-4").classList.add("activeTab");
-
-        document.getElementById("dashboard").classList = "col-12 d-none";
-        document.getElementById("projects").classList = "col-12 d-none";
-        document.getElementById("tasks").classList = "col-12 d-none";
-        document.getElementById("message").classList = "col-12 d-block";
-
-
-    }
-
+    document.getElementById("dashboard").classList = "col-12 d-none";
+    document.getElementById("projects").classList = "col-12 d-none";
+    document.getElementById("tasks").classList = "col-12 d-none";
+    document.getElementById("message").classList = "col-12 d-block";
+  }
 }
-
 
 function changeUserImage() {
   var view = document.getElementById("userProfileImageView");
@@ -285,6 +270,8 @@ function changeUserImage() {
     view.style.backgroundImage = "url(" + url + ")";
   };
 }
+
+var successModal;
 
 function userProfileUpdateProcess() {
   var fname = document.getElementById("editFirstname");
@@ -307,7 +294,10 @@ function userProfileUpdateProcess() {
     if (r.readyState == 4) {
       var t = r.responseText;
       if ("success") {
-        window.location.reload();
+        userVerificationModal.hide();
+        var m = document.getElementById("successModal");
+        successModal = new bootstrap.Modal(m);
+        successModal.show();
       } else {
         alert(t);
       }
@@ -318,84 +308,34 @@ function userProfileUpdateProcess() {
   r.send(form);
 }
 
-
-
-// __________________________________________________________
-
-
-
-var userVerificationModal;
-function userProfileBox() {
-  var m = document.getElementById("userProfileModal");
-  userVerificationModal = new bootstrap.Modal(m);
-  userVerificationModal.show();
+var createProjectModal;
+function createProject() {
+  var m = document.getElementById("createProjectModal");
+  createProjectModal = new bootstrap.Modal(m);
+  createProjectModal.show();
 }
 
+function highlight() {
+  var searchText = document.getElementById("search-project");
+  var row = document.getElementById("project-title");
 
-
-var successModal;
-function editUserDetails() {
-  var fname = document.getElementById("editFirstname").value;
-  var lname = document.getElementById("editLastname").value;
-  var mobile = document.getElementById("editMobile").value;
-  var password = document.getElementById("editPassword").value;
-  var image = document.getElementById("userProfileImage");
-
-  var f = new FormData();
-  f.append("fname", fname);
-  f.append("lname", lname);
-  f.append("mobile", mobile);
-  f.append("password", password);
-
-  if (image.files.length == 0) {
-    confirm("You have not selected profile image!");
-  } else {
-    f.append("imageObject", image.files[0]);
+  if (searchText !== "") {
+    var regEx = new RegExp(searchText, "gi");
+    row.innerHTML = row.textContent.replace(regEx, "<mark>$&</mark>");
   }
-
-  var r = new XMLHttpRequest();
-
-  r.onreadystatechange = function () {
-    if (r.readyState == 4) {
-      var response = r.responseText;
-      if (response == "success") {
-        userVerificationModal.hide();
-        var m = document.getElementById("successModal");
-        successModal = new bootstrap.Modal(m);
-        successModal.show();
-      } else {
-        alert(response);
-      }
-    }
-  };
-
-  r.open("POST", "updateUserProfileProcess.php", true);
-  r.send(f);
 }
 
-function userLogOut() {
-  var r = new XMLHttpRequest();
-
-  r.onreadystatechange = function () {
-    if (r.readyState == 4) {
-      var response = r.responseText;
-      if (response == "success") {
-        window.location = "authentication.php";
-      }
-    }
-  };
-
-  r.open("GET", "userLogoutProcess.php", true);
-  r.send();
+var viewProjectDetailsModal;
+function viewProjectDetails() {
+  var m = document.getElementById("viewProjectDetailsModal");
+  viewProjectDetailsModal = new bootstrap.Modal(m);
+  viewProjectDetailsModal.show();
 }
 
 function updateDateTime() {
   const now = new Date();
   const formattedDateTime = now.toLocaleString();
-  document.getElementById("liveDateTime1").textContent = formattedDateTime;
-  document.getElementById("liveDateTime2").textContent = formattedDateTime;
-  document.getElementById("liveDateTime3").textContent = formattedDateTime;
-  document.getElementById("liveDateTime4").textContent = formattedDateTime;
+  document.getElementById("liveDateTime").textContent = formattedDateTime;
 }
 
 updateDateTime();
@@ -406,3 +346,11 @@ var div1 = document.getElementById("dashboard").offsetHeight;
 var div2 = document.getElementById("area-header").offsetHeight;
 var boxHeight = div1 - div2;
 document.getElementById("area-body").style.height = boxHeight + "px";
+document.getElementById("project-body").style.height = boxHeight + "px";
+
+var userVerificationModal;
+function userProfileBox() {
+  var m = document.getElementById("userProfileModal");
+  userVerificationModal = new bootstrap.Modal(m);
+  userVerificationModal.show();
+}
