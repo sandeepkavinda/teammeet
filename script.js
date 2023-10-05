@@ -275,6 +275,48 @@ function listChange(row) {
 }
 
 
+function changeUserImage() {
+  var view = document.getElementById("userProfileImageView");
+  var file = document.getElementById("profileImg");
+
+  file.onchange = function () {
+    var file1 = this.files[0];
+    var url = window.URL.createObjectURL(file1);
+    view.style.backgroundImage = "url(" + url + ")";
+  };
+}
+
+function userProfileUpdateProcess() {
+  var fname = document.getElementById("editFirstname");
+  var lname = document.getElementById("editLastname");
+  var pw = document.getElementById("editPassword");
+  var image = document.getElementById("profileImg");
+
+  var form = new FormData();
+  form.append("fname", fname.value);
+  form.append("lname", lname.value);
+  form.append("pw", pw.value);
+
+  if (image.files.length != 0) {
+    form.append("image", image.files[0]);
+  }
+
+  var r = new XMLHttpRequest();
+
+  r.onreadystatechange = function () {
+    if (r.readyState == 4) {
+      var t = r.responseText;
+      if ("success") {
+        window.location.reload();
+      } else {
+        alert(t);
+      }
+    }
+  };
+
+  r.open("POST", "updateUserProfileProcess.php", true);
+  r.send(form);
+}
 
 
 
@@ -289,16 +331,7 @@ function userProfileBox() {
   userVerificationModal.show();
 }
 
-function changeUserImage() {
-  var view = document.getElementById("viewUserImage"); //img tag//
-  var file = document.getElementById("userProfileImage"); //file choose//
 
-  file.onchange = function () {
-    var file1 = this.files[0];
-    var url = window.URL.createObjectURL(file1);
-    view.src = url;
-  };
-}
 
 var successModal;
 function editUserDetails() {
