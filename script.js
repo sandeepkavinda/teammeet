@@ -325,13 +325,6 @@ function highlight() {
   }
 }
 
-var viewProjectDetailsModal;
-function viewProjectDetails() {
-  var m = document.getElementById("viewProjectDetailsModal");
-  viewProjectDetailsModal = new bootstrap.Modal(m);
-  viewProjectDetailsModal.show();
-}
-
 function updateDateTime() {
   const now = new Date();
   const formattedDateTime = now.toLocaleString();
@@ -347,10 +340,150 @@ var div2 = document.getElementById("area-header").offsetHeight;
 var boxHeight = div1 - div2;
 document.getElementById("area-body").style.height = boxHeight + "px";
 document.getElementById("project-body").style.height = boxHeight + "px";
+document.getElementById("task-body").style.height = boxHeight + "px";
 
 var userVerificationModal;
 function userProfileBox() {
   var m = document.getElementById("userProfileModal");
   userVerificationModal = new bootstrap.Modal(m);
   userVerificationModal.show();
+}
+
+function createTask(email, projectId) {
+  var title = document.getElementById("newTaskTitle").value;
+  var deadline = document.getElementById("newTaskDeadline").value;
+  var description = document.getElementById("newTaskDescription").value;
+
+  if (title == "") {
+    alert("Please Enter Task Title");
+  } else if (deadline == "") {
+    alert("Please Select Deadline");
+  } else {
+    var form = new FormData();
+    form.append("title", title);
+    form.append("deadline", deadline);
+    form.append("description", description);
+    form.append("email", email);
+    form.append("projectId", projectId);
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function () {
+      if (request.readyState == 4 && request.status == 200) {
+        var response = request.responseText;
+        if (response == "success") {
+        } else {
+          alert(response);
+        }
+      }
+    };
+
+    request.open("POST", "createTaskProcess.php", true);
+    request.send(form);
+  }
+}
+
+var viewProjectDetailsModal;
+function viewProjectDetails(task_id) {
+  var m = document.getElementById("viewProjectDetailsModal");
+  viewProjectDetailsModal = new bootstrap.Modal(m);
+  viewProjectDetailsModal.show();
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200) {
+      var response = request.responseText;
+      var members = JSON.stringify(response);
+      //Action
+    }
+  };
+
+  request.open("GET", "loadTaskDetails.php?tid=" + task_id, true);
+  request.send();
+}
+
+function createProjectProcess() {
+  var pname = document.getElementById("projectName").value;
+  var desc = document.getElementById("projectDescription").value;
+
+  var form = new FormData();
+  form.append("pname", pname);
+  form.append("desc", desc);
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200) {
+      var response = request.responseText;
+      if (response == "success") {
+        window.location.reload();
+      } else {
+        alert(response);
+      }
+    }
+  };
+
+  request.open("POST", "createProjectProcess.php", true);
+  request.send(form);
+}
+
+function viewMessages(email) {
+
+  var r = new XMLHttpRequest();
+
+  r.onreadystatechange = function () {
+    if (r.readyState == 4) {
+      var t = r.responseText;
+      alert(t);
+    }
+  }
+
+  r.open("GET", "viewMsgProcess.php?e=" + email, true);
+  r.send();
+
+}
+
+function send_msg() {
+  var email = document.getElementById("rmail");
+  var txt = document.getElementById("msg_txt");
+
+  var f = new FormData();
+  f.append("e", email.innerHTML);
+  f.append("t", txt.value);
+
+  var r = new XMLHttpRequest();
+
+  r.onreadystatechange = function () {
+    if (r.readyState == 4) {
+      var t = r.responseText;
+      if (t == "success") {
+        window.location.reload();
+      } else {
+        alert(t);
+      }
+
+    }
+  }
+
+  r.open("POST", "sendMsgProcess.php", true);
+  r.send(f);
+}
+
+function userLogOut() {
+
+  var r = new XMLHttpRequest();
+
+  r.onreadystatechange = function () {
+    if (r.readyState == 4 ) {
+      var response = r.responseText;
+      if (response == "success") {
+        window.location = "authentication.php";
+      }
+    }
+  };
+
+  r.open("GET", "userLogoutProcess.php", true);
+  r.send();
+
 }
