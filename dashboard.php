@@ -66,7 +66,7 @@ if (isset($_SESSION["user"])) {
                         </div>
 
                         <div class="fixed-bottom my-4 col-2 text-center">
-                            <button class="edit-profile p-2 rounded-2" onclick="userLogOut();"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Log Out</button>
+                            <button class="edit-profile p-2 rounded-2"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Log Out</button>
                         </div>
 
                     </div>
@@ -239,7 +239,7 @@ if (isset($_SESSION["user"])) {
                                                 <tr>
                                                     <td class="border-bottom"><?php echo ($rs7_data["task_title"]); ?></td>
                                                     <td class="border-bottom"><?php echo ($rs7_data["project_name"]); ?></td>
-                                                    <td class="border-bottom"><?php echo ($rs7_data["project_leader"]); ?></td>
+                                                    <td class="border-bottom"><?php echo ($rs7_data["task_leader"]); ?></td>
                                                     <td class="border-bottom"><?php echo ($rs7_data["task_added_datetime"]); ?></td>
                                                 </tr>
 
@@ -312,117 +312,106 @@ if (isset($_SESSION["user"])) {
                                     </div>
 
 
-
-
                                     <div class="col-12 bg-white p-3 mt-3 rounded-4 ">
                                         <div class="accordion" id="accordionPanelsStayOpenExample">
 
-                                            <?php
-                                            $rs8 = Database::search("SELECT * FROM `project` WHERE `project_leader`='" . $_SESSION['user']['email'] . "'");
-                                            $rs8_num = $rs8->num_rows;
+                                            <div class="d-flex col-12">
+                                                <div class="accordion-item col-11">
+                                                    <h2 class="accordion-header">
+                                                        <button class="accordion-button shadow-none " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                                            Sona
+                                                        </button>
+                                                    </h2>
+                                                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                                                        <div class="accordion-body">
 
-                                            for ($x = 0; $x < $rs8_num; $x++) {
-                                                $rs8_data = $rs8->fetch_assoc();
-                                            ?>
-                                                <div class="d-flex col-12">
-                                                    <div class="accordion-item col-11">
-                                                        <h2 class="accordion-header">
-                                                            <button class="accordion-button shadow-none " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne<?php echo $x + 1; ?>" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                                                <?php echo ($rs8_data['project_name']); ?>
-                                                            </button>
-                                                        </h2>
-                                                        <div id="panelsStayOpen-collapseOne<?php echo $x + 1; ?>" class="accordion-collapse collapse">
-                                                            <div class="accordion-body">
-                                                                <div class="col-12 my-3 p-3 rounded-4 bg-white ">
-                                                                    <h5 class="fw-bold">Create new task</h5>
-                                                                    <div class="col-12 d-flex justify-content-between  ">
-                                                                        <div class="col-6">
-                                                                            <span>Title</span>
-                                                                            <div class="input-group mt-2 px-3 py-2 border rounded-3">
-                                                                                <input type="text" class="form-control shadow-none border-0" id="newTaskTitle">
-                                                                            </div>
-                                                                        </div>
+                                                            <div class="col-12 mt-3 px-3 rounded-4 ">
+                                                                <table class="table ">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col" class="border-bottom bg-white fw-semibold text-dark">Title of task</th>
+                                                                            <th scope="col" class="border-bottom bg-white fw-semibold text-dark">Status</th>
+                                                                            <th scope="col" class="border-bottom bg-white fw-semibold text-dark">Issued date</th>
+                                                                            <th scope="col" class="border-bottom bg-white fw-semibold text-dark">Deadline</th>
+                                                                            <th scope="col" class="border-bottom bg-white fw-semibold text-dark">View details</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
 
-                                                                        <div class="col-5">
-                                                                            <span>Deadline</span>
-                                                                            <div class="input-group mt-2 px-3 py-2 border rounded-3 ">
-                                                                                <span class="input-group-text fw-bold border-0 bg-transparent"><i class="fa-solid fa-calendar"></i></span>
-                                                                                <input type="datetime-local" class="form-control shadow-none border-0" id="newTaskDeadline">
-                                                                            </div>
-                                                                        </div>
+                                                                        <tr>
+                                                                            <td class="border-bottom">Create a sign in page</td>
+                                                                            <td class="border-bottom">To do</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom"><button class="btn btn-dark view-details" onclick="viewProjectDetails();">view</button></td>
+                                                                        </tr>
 
+                                                                        <tr>
+                                                                            <td class="border-bottom">Create a sign in page</td>
+                                                                            <td class="border-bottom">To do</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom"><button class="btn btn-dark view-details" onclick="viewProjectDetails();">view</button></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="border-bottom">Create a sign in page</td>
+                                                                            <td class="border-bottom">To do</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom"><button class="btn btn-dark view-details" onclick="viewProjectDetails();">view</button></td>
+                                                                        </tr><tr>
+                                                                            <td class="border-bottom">Create a sign in page</td>
+                                                                            <td class="border-bottom">To do</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom"><button class="btn btn-dark view-details" onclick="viewProjectDetails();">view</button></td>
+                                                                        </tr><tr>
+                                                                            <td class="border-bottom">Create a sign in page</td>
+                                                                            <td class="border-bottom">To do</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom"><button class="btn btn-dark view-details" onclick="viewProjectDetails();">view</button></td>
+                                                                        </tr><tr>
+                                                                            <td class="border-bottom">Create a sign in page</td>
+                                                                            <td class="border-bottom">To do</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom"><button class="btn btn-dark view-details" onclick="viewProjectDetails();">view</button></td>
+                                                                        </tr>
 
+                                                                        <tr>
+                                                                            <td class="border-bottom">Create a sign in page</td>
+                                                                            <td class="border-bottom">To do</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom"><button class="btn btn-dark view-details" onclick="viewProjectDetails();">view</button></td>
+                                                                        </tr>
 
-                                                                    </div>
-
-                                                                    <div class="d-flex flex-column col-12 mt-2">
-                                                                        <span>Task Description</span>
-                                                                        <div class="form-floating mt-2">
-                                                                            <textarea class="form-control shadow-none" placeholder="You can add a description here" id="newTaskDescription"></textarea>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-12 mt-2 d-flex justify-content-end">
-                                                                        <button class="btn btn-dark mt-2" onclick="createTask('<?php echo ($_SESSION['user']['email']); ?>','<?php echo ($rs8_data['id']); ?>');">Create task</button>
-                                                                    </div>
-
-                                                                </div>
-
-                                                                <div class="col-12 mt-3 px-3 rounded-4 ">
-                                                                    <table class="table ">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th scope="col" class="border-bottom bg-white fw-semibold text-dark">Title of task</th>
-                                                                                <th scope="col" class="border-bottom bg-white fw-semibold text-dark">Status</th>
-                                                                                <th scope="col" class="border-bottom bg-white fw-semibold text-dark">Issued date</th>
-                                                                                <th scope="col" class="border-bottom bg-white fw-semibold text-dark">Deadline</th>
-                                                                                <th scope="col" class="border-bottom bg-white fw-semibold text-dark">View details</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-
-                                                                            <?php
-                                                                            $rs9 = Database::search("SELECT * FROM `task` INNER JOIN `task_status` ON `task`.`task_status_id`=`task_status`.`id` WHERE `project_id`='" . $rs8_data['id'] . "'  ");
-                                                                            $rs9_num = $rs9->num_rows;
-
-                                                                            for ($y = 0; $y < $rs9_num; $y++) {
-                                                                                $rs9_data = $rs9->fetch_assoc();
-
-                                                                            ?>
-
-
-                                                                                <tr>
-                                                                                    <td class="border-bottom"><?php echo $rs9_data['task_title']; ?></td>
-                                                                                    <td class="border-bottom"><?php echo $rs9_data['task_status_type']; ?></td>
-                                                                                    <td class="border-bottom"><?php echo $rs9_data['task_added_datetime']; ?></td>
-                                                                                    <td class="border-bottom"><?php echo $rs9_data['task_deadline_datetime']; ?></td>
-                                                                                    <td class="border-bottom"><button class="btn btn-dark view-details" onclick="viewProjectDetails('<?php echo $rs9_data['id']; ?>');">view</button></td>
-                                                                                </tr>
-
-
-                                                                            <?php
-
-                                                                            }
-                                                                            ?>
-
-
-
-
-
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-
+                                                                        <tr>
+                                                                            <td class="border-bottom">Create a sign in page</td>
+                                                                            <td class="border-bottom">To do</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom"><button class="btn btn-dark view-details" onclick="viewProjectDetails();">view</button></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="border-bottom">Create a sign in page</td>
+                                                                            <td class="border-bottom">To do</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom">2023-10-03 10:12:23</td>
+                                                                            <td class="border-bottom"><button class="btn btn-dark view-details" onclick="viewProjectDetails();">view</button></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
+
                                                         </div>
                                                     </div>
-                                                    <div class="col-1 d-flex justify-content-center mt-3 fs-5 "><i class="fa-solid fa-trash"></i></div>
                                                 </div>
+                                                <div class="col-1 d-flex justify-content-center mt-3 fs-5 "><i class="fa-solid fa-trash"></i></div>
+                                            </div>
 
-                                            <?php
-                                            }
 
-                                            ?>
 
                                         </div>
                                     </div>
@@ -457,6 +446,27 @@ if (isset($_SESSION["user"])) {
 
 
 
+                    <!-- projects
+                    <div class="col-12 d-none " id="projects">
+                        <div class="row">
+
+                            <div class="area-header col-12 p-3">
+                                <div class="row">
+
+                                    <div class="col-6 ps-4">
+                                        <span class="fs-4 fw-semibold text-white"><i class="fa-solid fa-folder-open fs-4 "></i>&nbsp;&nbsp;projects</span>
+                                    </div>
+
+                                    <div class="col-6 d-flex justify-content-end align-items-center gap-3 pe-4">
+                                        <label class="text-white" id="liveDateTime2"></label>
+                                        <i class="fa-regular fa-bell text-white fs-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> -->
+
                     <!-- tasks -->
                     <div class="col-12 d-none " id="tasks">
                         <div class="row">
@@ -469,99 +479,14 @@ if (isset($_SESSION["user"])) {
                                     </div>
 
                                     <div class="col-6 d-flex justify-content-end align-items-center gap-3 pe-4">
+                                        <label class="text-white" id="liveDateTime3"></label>
                                         <i class="fa-regular fa-bell text-white fs-4"></i>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="area-body col-12 overflow-y-scroll" id="task-body">
-
-                                <div class="col-12 px-4 py-3 bg-white mt-3 rounded-4 d-flex justify-content-between">
-                                    <div class="col-4">
-                                        <span class="fw-semibold">Search by Title</span>
-                                        <div class="input-group mt-2 px-3 py-2 border rounded-3 ">
-                                            <span class="input-group-text fw-bold border-0 bg-transparent"><i class="fa-solid fa-magnifying-glass"></i></span>
-                                            <input type="text" class="form-control shadow-none border-0 " onkeypress="">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-3">
-                                        <span class="fw-semibold">Search by sort</span>
-                                        <div class="input-group mt-2 px-3 py-2 border rounded-3 ">
-                                            <select class="form-select border-0 shadow-none" aria-label="Default select example">
-                                                <option selected value="0">Date & Time Desc</option>
-                                                <option value="1">Date & Time Asc</option>
-                                                <option value="2">Max amount</option>
-                                                <option value="3">Min amount</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-3">
-                                        <span class="fw-semibold">Filter</span>
-                                        <div class="input-group mt-2 px-3 py-2 border rounded-3 ">
-                                            <select class="form-select border-0 shadow-none" aria-label="Default select example">
-                                                <option selected value="0">Date & Time Desc</option>
-                                                <option value="1">Date & Time Asc</option>
-                                                <option value="2">Max amount</option>
-                                                <option value="3">Min amount</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- table -->
-
-                                <div class="col-12 mt-3 rounded-4 ">
-                                    <table class="table rounded-table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" class="border-bottom">Task Id</th>
-                                                <th scope="col" class="border-bottom">Title</th>
-                                                <th scope="col" class="border-bottom">Description</th>
-                                                <th scope="col" class="border-bottom">Project name</th>
-                                                <th scope="col" class="border-bottom">Added date</th>
-                                                <th scope="col" class="border-bottom">Deadline</th>
-                                                <th scope="col" class="border-bottom">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <?php
-                                            $rs10 = Database::search("SELECT * FROM task 
-                                            INNER JOIN task_status ON task.task_status_id=task_status.id 
-                                            INNER JOIN project ON task.project_id=project.id
-                                            WHERE project_leader='" . $_SESSION['user']['email'] . "'  ");
-                                            $rs10_num = $rs10->num_rows;
-
-                                            for ($y = 0; $y < $rs10_num; $y++) {
-                                                $rs10_data = $rs10->fetch_assoc();
-                                            ?>
-                                                <tr>
-                                                    <td class="border-bottom"><?php echo $rs10_data['id']; ?></td>
-                                                    <td class="border-bottom"><?php echo $rs10_data['task_title']; ?></td>
-                                                    <td class="border-bottom"><?php echo $rs10_data['task_description']; ?></td>
-                                                    <td class="border-bottom"><?php echo $rs10_data['project_name']; ?></td>
-                                                    <td class="border-bottom"><?php echo $rs10_data['task_added_datetime']; ?></td>
-                                                    <td class="border-bottom"><?php echo $rs10_data['task_deadline_datetime']; ?></td>
-                                                    <td class="border-bottom"><button class="btn btn-dark view-details" onclick="viewProjectDetails();">view</button></td>
-                                                </tr>
-                                            <?php
-
-                                            }
-                                            ?>
-
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-
                         </div>
-                    
                     </div>
-
 
                     <!-- message -->
                     <div class="col-12" id="message">
@@ -575,6 +500,7 @@ if (isset($_SESSION["user"])) {
                                     </div>
 
                                     <div class="col-6 d-flex justify-content-end align-items-center gap-3 pe-4">
+                                        <label class="text-white" id="liveDateTime4"></label>
                                         <i class="fa-regular fa-bell text-white fs-4"></i>
                                     </div>
 
@@ -782,7 +708,7 @@ if (isset($_SESSION["user"])) {
 
                                                 <div class="col-12 d-flex rounded" style="background-color:  #088395;">
                                                     <div class="col-2  d-flex justify-content-center align-items-center">
-                                                        <img src="profile_img/default_profile.png" width="50px" class="rounded-circle">
+                                                        <img src="profile_img/newuser.svg" width="50px" class="rounded-circle">
                                                     </div>
                                                     <div class="col-10">
                                                         <p class="text-dark fw-bold fs-6 mt-2 " id="rmail">Daham
@@ -805,7 +731,7 @@ if (isset($_SESSION["user"])) {
                                                 <div class="col-12 d-flex rounded" style="background-color:  #F5FCCD;">
 
                                                     <div class="col-2  d-flex justify-content-center align-items-center">
-                                                        <img src="profile_img/default_profile.png" width="50px" class="rounded-circle">
+                                                        <img src="profile_img/newuser.svg" width="50px" class="rounded-circle">
                                                     </div>
                                                     <div class="col-10">
                                                         <p class="text-dark fw-bold fs-6 mt-2" id="rmail">Danula
@@ -827,7 +753,7 @@ if (isset($_SESSION["user"])) {
 
                                                 <div class="col-12 d-flex rounded" style="background-color:  #088395;">
                                                     <div class="col-2  d-flex justify-content-center align-items-center">
-                                                        <img src="profile_img/default_profile.png" width="50px" class="rounded-circle">
+                                                        <img src="profile_img/newuser.svg" width="50px" class="rounded-circle">
                                                     </div>
                                                     <div class="col-10">
                                                         <p class="text-dark fw-bold fs-6 mt-2 " id="rmail">Daham
@@ -846,7 +772,7 @@ if (isset($_SESSION["user"])) {
 
                                                 <div class="col-12 d-flex rounded" style="background-color:  #088395;">
                                                     <div class="col-2  d-flex justify-content-center align-items-center">
-                                                        <img src="profile_img/default_profile.png" width="50px" class="rounded-circle">
+                                                        <img src="profile_img/newuser.svg" width="50px" class="rounded-circle">
                                                     </div>
                                                     <div class="col-10">
                                                         <p class="text-dark fw-bold fs-6 mt-2 " id="rmail">Daham
@@ -882,6 +808,25 @@ if (isset($_SESSION["user"])) {
                         </div>
                     </div>
 
+                    <!-- Message
+                    <div class="col-12 d-none " id="message">
+                        <div class="row">
+
+                            <div class="area-header col-12 p-3">
+                                <div class="row">
+
+                                    <div class="col-6 ps-4">
+                                        <span class="fs-4 fw-semibold text-white"><i class="fa-solid fa-comments fs-4"></i>&nbsp;&nbsp;Message</span>
+                                    </div>
+
+                                    <div class="col-6 d-flex justify-content-end align-items-center gap-3 pe-4">
+                                        <label class="text-white" id="liveDateTime4"></label>
+                                        <i class="fa-regular fa-bell text-white fs-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
 
 
                 </div>
@@ -889,42 +834,7 @@ if (isset($_SESSION["user"])) {
             </div>
         </div>
 
-        <!-- Create Project Modal -->
-        <div class="modal fade" id="createProjectModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5"><i class="fa-solid fa-folder-plus fs-5 "></i>&nbsp;&nbsp;Create new project</h1>
-                    </div>
-
-                    <div class="modal-body d-flex flex-column justify-content-center align-items-center py-3 ">
-
-                        <div class="d-flex justify-content-between col-12 p-3">
-                            <div class="d-flex flex-column col-12 ">
-                                <span class="fw-semibold">Project Name</span>
-                                <input type="text" class="verification-input" value="" id="projectName">
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-column col-12 p-3">
-                            <span class="fw-semibold">Project Description</span>
-                            <div class="form-floating mt-2">
-                                <textarea class="form-control shadow-none" placeholder="You can add a description here" id="projectDescription" style="height: 100px; border: 2px solid #088395;"></textarea>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary border-0" style="background-color: #088395;" onclick="createProjectProcess();">Create project </button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- user Profile Modal -->
+        <!-- Modal -->
         <div class="modal fade" id="userProfileModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -974,86 +884,6 @@ if (isset($_SESSION["user"])) {
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary border-0" style="background-color: #088395;" onclick="userProfileUpdateProcess();">Update Details</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- view Project Details Modal -->
-        <div class="modal fade" id="viewProjectDetailsModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered overflow-hidden">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5"><i class="fa-solid fa-eye fs-5 "></i>&nbsp;&nbsp;View task details</h1>
-                    </div>
-
-                    <div class="modal-body d-flex flex-column justify-content-center align-items-center py-3 ">
-
-                        <div class="col-12 p-3 ">
-                            <span id="taskTitle">Title : create a sign in page</span>
-                        </div>
-
-                        <div class="d-flex flex-column col-12 p-3">
-                            <div class="d-flex flex-column col-12 ">
-                                <span class="fw-semibold">Search member by email</span>
-                                <input type="text" class="verification-input" value="" id="editPassword">
-                            </div>
-
-                            <div class="col-12 mt-3 px-3 rounded-4 overflow-y-scroll" style="height:40vh;">
-                                <table class="table ">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" class="border-bottom bg-white fw-semibold text-dark">Email</th>
-                                            <th scope="col" class="border-bottom bg-white fw-semibold text-dark">status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <tr>
-                                            <td class="border-0">mahasona@gmail.com</td>
-                                            <td class="border-0"><button class="btn btn-dark ">Add</button></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="border-0">mahasona@gmail.com</td>
-                                            <td class="border-0"><button class="btn btn-dark ">Add</button></td>
-
-                                        </tr>
-
-                                        <tr>
-                                            <td class="border-0">mahasona@gmail.com</td>
-                                            <td class="border-0"><button class="btn btn-dark ">Add</button></td>
-
-                                        </tr>
-
-
-                                        <tr>
-                                            <td class="border-0">mahasona@gmail.com</td>
-                                            <td class="border-0"><button class="btn btn-dark ">Add</button></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="border-0">mahasona@gmail.com</td>
-                                            <td class="border-0"><button class="btn btn-dark ">Add</button></td>
-
-                                        </tr>
-
-                                        <tr>
-                                            <td class="border-0">mahasona@gmail.com</td>
-                                            <td class="border-0"><button class="btn btn-dark ">Add</button></td>
-
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary border-0" style="background-color: #088395;">Create project </button>
                     </div>
                 </div>
             </div>
